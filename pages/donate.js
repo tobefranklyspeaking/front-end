@@ -14,17 +14,14 @@ function DonatePage() {
 
       <HeroBanner title={pageTitle} />
 
-      <div>
-        <img
-          src={`${s3}guidestar_gold.png`}
-          alt="GuideStar Gold Transparency Seal"
-          className={styles.goldSealImg}
-        />
-      </div>
-
       <Content
         theme="white"
         columns={[
+          <img
+            src={`${s3}guidestar_gold.png`}
+            alt="GuideStar Gold Transparency Seal"
+            className={styles.goldSealImg}
+          />,
           <p>
             PLACE HOLDER FOR DONATE PAGE COPY. Lorem ipsum dolor sit amet, consectetur adipiscing
             elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
