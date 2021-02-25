@@ -31,6 +31,7 @@ function DonatePage() {
             </p>
             <iframe
               title="Donation Form"
+              className={styles.donationForm}
               src="https://secure.lglforms.com/form_engine/s/BRtP7QUKyHOyEYsZROsRew"
               height="1500px"
               width="110%"
