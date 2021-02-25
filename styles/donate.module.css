@@ -6,7 +6,32 @@
 }
 
 .goldSealImg {
-  width: 120px;
   height: 120px;
+  width: 120px;
   padding-bottom: 10px;
+}
+
+@media screen and (--medium-viewport) {
+  /* max-width: 768px */
+  .goldSealImg {
+    height: 175px;
+    width: 175px;
+  }
+
+  .donationForm {
+    padding: 0 0 0 3rem;
+  }
+}
+
+@media screen and (--extra-large-viewport) {
+  /* max-width: 1200px */
+  .donationForm {
+    padding: 0 0 0 4rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .donationForm {
+    padding: 0 0 0 4rem;
+  }
 }
