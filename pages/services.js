@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import { number } from 'prop-types';
 import TrackVisibility from 'react-on-screen';
 import get from 'lodash/get';
 import classNames from 'classnames';
@@ -18,6 +18,7 @@ import { ONE_WEEK } from 'common/constants/unitsOfTime';
 import { s3 } from 'common/constants/urls';
 import { slackMembersAPIUrl, slackGeneralChannelId } from 'common/config/environment';
 import styles from 'styles/services.module.css';
+import OutboundLink from '../components/OutboundLink/OutboundLink';
 
 const VISIBILITY_OFFSET = 400;
 
@@ -37,7 +38,7 @@ const mentorItems = [
 ];
 
 Services.propTypes = {
-  numberOfMembers: PropTypes.number,
+  numberOfMembers: number,
 };
 
 Services.defaultProps = {
@@ -94,6 +95,20 @@ function Services({ numberOfMembers }) {
               <LinkButton href="/join" theme="secondary">
                 Become A Member
               </LinkButton>
+            </div>
+
+            <div>
+              <p className={classNames(styles.centeredText, styles.topMargin)}>
+                Do you love Operation Code? Check out our{' '}
+                <OutboundLink
+                  analyticsEventLabel="Merch Store"
+                  hasIcon
+                  href="https://operationcode.threadless.com/"
+                >
+                  Merch Store
+                </OutboundLink>{' '}
+                and get some swag!
+              </p>
             </div>
           </div>,
         ]}

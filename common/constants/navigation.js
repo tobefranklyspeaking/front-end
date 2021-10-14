@@ -70,6 +70,11 @@ const resources = {
   href: '/resources',
 };
 
+const merchStore = {
+  name: 'Merch Store',
+  href: '/swag',
+};
+
 const logout = {
   name: 'Logout',
   href: '/logout', // has a redirect in Next configuration file.
@@ -90,7 +95,7 @@ const accountGroup = {
 
 const servicesGroup = {
   ...services,
-  sublinks: [events, podcast, resources, codeSchools],
+  sublinks: [merchStore, events, podcast, resources, codeSchools],
 };
 
 const aboutUsGroup = {
@@ -114,25 +119,16 @@ export const loggedOutNavItems = [aboutUsGroup, servicesGroup, getInvolvedGroup,
 
 // Extracts sublinks to list everything as a single, top-level list
 export const mobileLoggedInNavItems = flattenDepth(
-  [
-    logout,
-    profile,
-    about,
-    events,
-    getInvolved,
-    ...servicesGroup.sublinks,
-  ].map(({ sublinks = [], ...item }) => [item, sublinks]),
+  [logout, profile, about, events, getInvolved, ...servicesGroup.sublinks].map(
+    ({ sublinks = [], ...item }) => [item, sublinks],
+  ),
   2,
 );
 
 export const mobileLoggedOutNavItems = flattenDepth(
-  [
-    login,
-    about,
-    events,
-    getInvolved,
-    ...servicesGroup.sublinks,
-  ].map(({ sublinks = [], ...item }) => [item, sublinks]),
+  [login, about, events, getInvolved, ...servicesGroup.sublinks].map(
+    ({ sublinks = [], ...item }) => [item, sublinks],
+  ),
   2,
 );
 

@@ -12,13 +12,17 @@ const inputFields = {
   firstName: 'First Name*',
   lastName: 'Last Name*',
   zipcode: 'Zipcode*',
+  codeOfConduct: /I have read and agree to/,
 };
 
 const assertError = ({
   numberOfErrors = 1,
   errorMessage = validationErrorMessages.required,
 } = {}) => {
-  cy.findAllByRole('alert').should('have.length', numberOfErrors).should('contain', errorMessage);
+  cy.findAllByRole('alert')
+    .should('have.length', numberOfErrors) // +1 because next announcer exists
+    // .should('have.length', numberOfErrors + 1) // TODO: For next@11 add 1 cuz announcer exists
+    .should('contain', errorMessage);
 };
 
 const assertFailedLogin = ({
@@ -30,7 +34,7 @@ const assertFailedLogin = ({
   cy.findByText('Submit').click();
 
   if (shouldWait) {
-    cy.wait(routeToWaitFor);
+    cy.wait(routeToWaitFor || '@postRegister');
   }
 
   cy.url().should('contain', '/join');
@@ -68,6 +72,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ numberOfErrors: 2 });
   });
@@ -82,6 +87,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ numberOfErrors: 2 });
   });
@@ -100,6 +106,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(invalidUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(invalidUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(invalidUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.email });
   });
@@ -115,6 +122,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin();
   });
@@ -130,6 +138,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.emailsMatch });
   });
@@ -142,6 +151,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(existingUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(existingUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(existingUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.emailExists, shouldWait: true });
   });
@@ -160,6 +170,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ numberOfErrors: 2 });
   });
@@ -181,6 +192,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(invalidUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(invalidUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(invalidUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.password });
   });
@@ -202,6 +214,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(invalidUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(invalidUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(invalidUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.password });
   });
@@ -223,6 +236,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(invalidUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(invalidUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(invalidUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.password });
   });
@@ -244,6 +258,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(invalidUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(invalidUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(invalidUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.password });
   });
@@ -259,6 +274,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin();
   });
@@ -274,6 +290,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin({ errorMessage: validationErrorMessages.passwordsMatch });
   });
@@ -292,6 +309,7 @@ describe('join', () => {
 
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin();
   });
@@ -307,6 +325,7 @@ describe('join', () => {
 
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin();
   });
@@ -322,6 +341,7 @@ describe('join', () => {
     assertError();
 
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin();
   });
@@ -337,6 +357,7 @@ describe('join', () => {
     assertError();
 
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
 
     assertFailedLogin();
   });
@@ -355,6 +376,8 @@ describe('join', () => {
     cy.findByLabelText(inputFields.zipcode).focus().blur();
     assertError();
 
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
+
     assertFailedLogin();
   });
 
@@ -369,14 +392,30 @@ describe('join', () => {
     cy.findByLabelText(inputFields.zipcode).type('     ').blur();
     assertError();
 
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
+
     assertFailedLogin();
+  });
+
+  it('should NOT be able to register when Code of Conduct is not agreed to', () => {
+    cy.findByLabelText(inputFields.email).type(validUser.email);
+    cy.findByLabelText(inputFields.confirmEmail).type(validUser.email);
+    cy.findByLabelText(inputFields.password).type(validUser.password);
+    cy.findByLabelText(inputFields.confirmPassword).type(validUser.password);
+    cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
+    cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
+    cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+
+    cy.findByLabelText(inputFields.codeOfConduct).focus().blur();
+    assertError({ numberOfErrors: 1, errorMessage: validationErrorMessages.codeOfConduct });
+    assertFailedLogin({ numberOfErrors: 1, errorMessage: validationErrorMessages.codeOfConduct });
   });
 
   /**
    * Registration without all fields
    */
   it('should NOT be able to register without filling all required fields', () => {
-    assertFailedLogin({ numberOfErrors: 7 });
+    assertFailedLogin({ numberOfErrors: 8 });
   });
 
   /**
@@ -390,6 +429,7 @@ describe('join', () => {
     cy.findByLabelText(inputFields.firstName).type(validUser.firstName);
     cy.findByLabelText(inputFields.lastName).type(validUser.lastName);
     cy.findByLabelText(inputFields.zipcode).type(validUser.zipcode);
+    cy.findByLabelText(inputFields.codeOfConduct).type(validUser.codeOfConduct);
     cy.findByText('Submit').click();
 
     cy.url({ timeout: 10000 }).should('contain', '/profile/update');
